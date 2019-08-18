@@ -1,4 +1,5 @@
 var os = require('os');
+var colors = require("colors");
 var converters = require("./converters");
 
 function getOSinfo() {
@@ -14,8 +15,8 @@ function getOSinfo() {
     console.log("System: " + type);
     console.log("Release: " + release);
     console.log("Procesor: " + os.cpus()[0].model);
-    console.log("Uptime: " + converters.timeFormat(os.uptime()));
-    console.log("User name: " + os.userInfo().username);
+    console.log("Uptime: " + converters.timeFormat(os.uptime()).green);
+    console.log(colors.bold("User name: " + os.userInfo().username.red));
     console.log("Home dir: " + os.userInfo().homedir);
 }
 

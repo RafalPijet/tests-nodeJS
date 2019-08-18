@@ -1,4 +1,12 @@
 var systemInfo = require("../modules/osinfo");
+var EventEmiter = require("events").EventEmitter;
+var emiter = new EventEmiter();
+emiter.on("beforeCommand", function (command) {
+   console.log('You wrote: ' + command + ', trying to run command');
+});
+emiter.on("afterCommand", function () {
+   console.log('Finished command');
+});
 process.stdin.setEncoding('utf-8');
 console.log("Enter instruction:");
 process.stdin.on("readable", function () {
@@ -6,11 +14,13 @@ process.stdin.on("readable", function () {
 
     if (input != null) {
         var instruction = input.toString().trim();
+        emiter.emit("beforeCommand", instruction);
 
         switch (instruction) {
             case "/exit":
                 process.stdout.write("Quitting app!\n");
                 process.exit();
+                break;
             case "version":
                 process.stdout.write("Node version: ");
                 process.stdout.write(process.version + "\n");
@@ -25,5 +35,6 @@ process.stdin.on("readable", function () {
             default:
                 process.stderr.write("Wrong command!!!\n");
         }
+        emiter.emit("afterCommand");
     }
 });
