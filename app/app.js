@@ -1,5 +1,6 @@
+var systemInfo = require("../modules/osinfo");
 process.stdin.setEncoding('utf-8');
-
+console.log("Enter instruction:");
 process.stdin.on("readable", function () {
     var input = process.stdin.read();
 
@@ -17,6 +18,9 @@ process.stdin.on("readable", function () {
             case "language":
                 process.stdout.write("User language: ");
                 process.stdout.write(process.env.LC_CTYPE + "\n");
+                break;
+            case "getOSinfo":
+                systemInfo.getOSinfo();
                 break;
             default:
                 process.stderr.write("Wrong command!!!\n");
