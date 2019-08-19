@@ -1,0 +1,1 @@
+.git,.idea,app,index.js,modules,node_modules,package-lock.json,package.json,test-node-js.iml,tex.txt,text.txt
